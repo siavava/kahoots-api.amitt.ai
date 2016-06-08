@@ -6,3 +6,7 @@ build
 dist
 cypress/screenshots/
 cypress/videos/
+node_modules
+config.js
+npm-debug.log
+dist
