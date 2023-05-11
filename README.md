@@ -1,6 +1,6 @@
-# Title
+# Kahoots API
 
-*description*
+_An API built with Express and MongoDB that acts as a back-end for Kahoots game_
 
 [deployed url]([http://url-if-deployed-here](https://kahoors-api-siavava.onrender.com))
 
@@ -10,8 +10,13 @@ The API was pretty straightforward to implement (mostly because @timofei7 told u
 
 ## What Didn't
 
-Nothing
+> I had some trouble figuring out why some tests were not passing
+> when everything seemed to be working fine.
 
 ## Extra Credit
 
+> None
+
 ## Screenshots
+
+> N/A
