@@ -6,7 +6,7 @@ _An API built with Express and MongoDB that acts as a back-end for Kahoots game_
 
 ## What Worked Well
 
-The API was pretty straightforward to implement (mostly because @timofei7 told us exactly what to do :smile: )
+The API was pretty straightforward to implement (mostly because you guys told us exactly what to do :smile: )
 
 ## What Didn't
 
