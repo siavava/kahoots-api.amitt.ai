@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
+import mongoose from 'mongoose';
+import routes from './routes';
 
 // initialize
 const app = express();
@@ -24,6 +26,7 @@ app.set('views', path.join(__dirname, '../src/views'));
 // enable json message body for posting data to API
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use('', routes);
 
 // additional init stuff should go before hitting the routing
 
@@ -36,6 +39,11 @@ app.get('/', (req, res) => {
 // =============================================================================
 async function startServer() {
   try {
+    // connect DB
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/kahootAPI';
+    await mongoose.connect(mongoURI);
+    console.log(`Mongoose connected to: ${mongoURI}`);
+
     const port = process.env.PORT || 9090;
     app.listen(port);
 
