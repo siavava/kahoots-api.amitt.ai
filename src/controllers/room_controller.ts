@@ -1,7 +1,7 @@
 import Room, { RoomStates } from '../models/room_model';
 import { submit, getScores, countSubmissions } from './submission_controller';
 
-export async function createRoom(roomInitInfo) {
+export async function createRoom(roomInitInfo: any) {
   const newRoom = new Room();
   newRoom.creator = roomInitInfo.creator;
   newRoom.questions = roomInitInfo.questions;
@@ -13,19 +13,19 @@ export async function createRoom(roomInitInfo) {
   return newRoom.save();
 }
 
-export async function joinRoom(roomId, playerInfo) {
+export async function joinRoom(roomId: string, playerInfo: { name: string }) {
   const room = await Room.findById(roomId);
 
   // make sure player's intended name does not already exist
   const newPlayerName = playerInfo.name;
-  const existingPlayers = room.players;
+  const existingPlayers = room?.players;
 
-  if (existingPlayers.includes(newPlayerName)) {
+  if (existingPlayers?.includes(newPlayerName)) {
     throw new Error(`Player with your intended name (${newPlayerName}) already exists`);
   }
 
-  if (room.status !== RoomStates.OPEN) {
-    throw new Error(`This room is not open for joining in state ${room.status}`);
+  if (room?.status !== RoomStates.OPEN) {
+    throw new Error(`This room is not open for joining in state ${room?.status}`);
   }
 
   // username is free; add player to room
@@ -33,9 +33,9 @@ export async function joinRoom(roomId, playerInfo) {
   return room.save();
 }
 
-export async function changeStatus(roomId, roomKey, status) {
+export async function changeStatus(roomId: string, roomKey: string, status: string) {
   const room = await Room.findById(roomId);
-  if (room.roomKey !== roomKey) {
+  if (room?.roomKey !== roomKey) {
     throw new Error('Room key is incorrect');
   }
 
@@ -49,8 +49,9 @@ export async function changeStatus(roomId, roomKey, status) {
 }
 
 // returns the main game state with current question, rank, game status, and scoreboard
-export async function getState(roomId, player) {
+export async function getState(roomId: string, player: any) {
   const room = await Room.findById(roomId);
+  if (!room || !room.currentQuestionNumber) throw new Error(`Room (${roomId}) not found`);
   const scores = await getScores(roomId, room.currentQuestionNumber, room.players);
   const topThree = scores.slice(0, 3);
 
@@ -75,8 +76,9 @@ export async function getState(roomId, player) {
 
 // submit an answer to a room's current question
 // submit an answer to a room's current question
-export async function submitAnswer(roomId, player, response) {
+export async function submitAnswer(roomId: string, player: any, response: any) {
   const room = await Room.findById(roomId);
+  if (!room) throw new Error(`Room (${roomId}) not found`);
 
   if (room.status !== 'IN_PROGRESS') {
     throw new Error('This game is not in progress. Can\'t submit now.');
@@ -84,6 +86,10 @@ export async function submitAnswer(roomId, player, response) {
 
   if (!room.players.includes(player)) {
     throw new Error(`Player (${player}) not in room`);
+  }
+
+  if (!room.currentQuestionNumber) {
+    throw new Error('Game is over. Can\'t submit now.');
   }
 
   const isCorrect = room.questions[room.currentQuestionNumber].answer === response;

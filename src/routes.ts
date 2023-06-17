@@ -17,7 +17,7 @@ router.post('/rooms', async (req, res) => {
   try {
     const result = await Rooms.createRoom(roomInitInfo);
     return res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(422).json({ error: error.message });
   }
 });
@@ -32,7 +32,7 @@ router.get('/rooms/:id', async (req, res) => {
   try {
     const result = await Rooms.getState(roomId, player);
     return res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(422).json({ error: error.message });
   }
 });
@@ -47,7 +47,7 @@ router.post('/rooms/:id', async (req, res) => {
   try {
     const result = await Rooms.joinRoom(roomId, playerInfo);
     return res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(422).json({ error: error.message });
   }
 });
@@ -62,7 +62,7 @@ router.patch('/rooms/:id', async (req, res) => {
   try {
     const result = await Rooms.changeStatus(roomId, roomKey, status);
     return res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(422).json({ error: error.message });
   }
 });
@@ -77,7 +77,7 @@ router.post('/rooms/:id/submissions', async (req, res) => {
   try {
     const result = await Rooms.submitAnswer(roomId, player, response);
     return res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(422).json({ error: error.message });
   }
 });

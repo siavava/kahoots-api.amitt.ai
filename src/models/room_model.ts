@@ -11,6 +11,7 @@ const RoomSchema = new Schema({
   creator: String,
   questions: [{ prompt: String, answer: String }],
   players: [String],
+  submissions: [{ player: String, response: String }],
   roomKey: String,
   status: { type: String, enum: RoomStates, default: RoomStates.CLOSED },
   currentQuestionNumber: Number,
