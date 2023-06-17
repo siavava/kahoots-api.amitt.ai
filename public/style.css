@@ -82,7 +82,7 @@ a {
 
 a:hover {
   color: var(--highlight);
-  border-bottom:2spx solid;
+  border-bottom: 2px solid;
 }
 
 .table {
